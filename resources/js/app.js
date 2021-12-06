@@ -33,11 +33,10 @@ const files = require.context('./', true, /\.vue$/i)
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 const contactus = require('./components/ContactComponent.vue').default;
 const checkout = require('./components/CheckoutComponent.vue').default;
+const shopgrid = require('./components/GridShopCompoenent.vue').default;
 const home = require('./components/HomeComponent.vue').default;
 
-
 const routes = [
-
     {
         path: '/home',
         component: home
@@ -49,6 +48,10 @@ const routes = [
     {
         path: '/checkout',
         component: checkout
+    },
+    {
+        path: '/shopgrid',
+        component: shopgrid
     }
 ]
 

@@ -28,9 +28,9 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function home()
     {
-        //
+        return view('index');
     }
 
     /**

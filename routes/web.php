@@ -21,11 +21,11 @@ Route::get('/welcome', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('/tasks', TodoController::class);
 Route::get('/tasks/search/{term?}',[TodoController::class,'search']);
 
-Route::view('/website','index');
+Route::get('/',[ProductsController::class,'home']);
 
 Route::resource('/products', ProductsController::class);
 

@@ -90,9 +90,9 @@
                 <ul class="list-main">
                   <li><i class="ti-location-pin"></i> Store location</li>
                   <li>
-                    <i class="ti-alarm-clock"></i> <a href="#">Daily deal</a>
+                    <i class="ti-alarm-clock"></i> <a >Daily deal</a>
                   </li>
-                  <li><i class="ti-user"></i> <a href="#">My account</a></li>
+                  <li><i class="ti-user"></i> <a >My account</a></li>
                   <li><i class="ti-power-off"></i><a>Login</a></li>
                 </ul>
               </div>
@@ -118,7 +118,7 @@
               <!-- Search Form -->
               <div class="search-top">
                 <div class="top-search">
-                  <a href="#0"><i class="ti-search"></i></a>
+                  <a href="hjj"><i class="ti-search"></i></a>
                 </div>
                 <!-- Search Form -->
                 <div class="search-top">
@@ -169,83 +169,83 @@
                 
                   <!-- <ul class="main-category">
                     <li>
-                      <a href="#"
+                      <a 
                         >New Arrivals
                         <i class="fa fa-angle-right" aria-hidden="true"></i
                       ></a>
                       <ul class="sub-category">
-                        <li><a href="#">accessories</a></li>
-                        <li><a href="#">best selling</a></li>
-                        <li><a href="#">top 100 offer</a></li>
-                        <li><a href="#">sunglass</a></li>
-                        <li><a href="#">watch</a></li>
-                        <li><a href="#">man’s product</a></li>
-                        <li><a href="#">ladies</a></li>
-                        <li><a href="#">westrn dress</a></li>
-                        <li><a href="#">denim </a></li>
+                        <li><a >accessories</a></li>
+                        <li><a >best selling</a></li>
+                        <li><a >top 100 offer</a></li>
+                        <li><a >sunglass</a></li>
+                        <li><a >watch</a></li>
+                        <li><a >man’s product</a></li>
+                        <li><a >ladies</a></li>
+                        <li><a >westrn dress</a></li>
+                        <li><a >denim </a></li>
                       </ul>
                     </li>
                     <li class="main-mega">
-                      <a href="#"
+                      <a 
                         >best selling
                         <i class="fa fa-angle-right" aria-hidden="true"></i
                       ></a>
                       <ul class="mega-menu">
                         <li class="single-menu">
-                          <a href="#" class="title-link">Shop Kid's</a>
+                          <a  class="title-link">Shop Kid's</a>
                           <div class="image">
                             <img
                               src="https://via.placeholder.com/225x155"
-                              alt="#"
+                              
                             />
                           </div>
                           <div class="inner-link">
-                            <a href="#">Kids Toys</a>
-                            <a href="#">Kids Travel Car</a>
-                            <a href="#">Kids Color Shape</a>
-                            <a href="#">Kids Tent</a>
+                            <a >Kids Toys</a>
+                            <a >Kids Travel Car</a>
+                            <a >Kids Color Shape</a>
+                            <a >Kids Tent</a>
                           </div>
                         </li>
                         <li class="single-menu">
-                          <a href="#" class="title-link">Shop Men's</a>
+                          <a  class="title-link">Shop Men's</a>
                           <div class="image">
                             <img
                               src="https://via.placeholder.com/225x155"
-                              alt="#"
+                              
                             />
                           </div>
                           <div class="inner-link">
-                            <a href="#">Watch</a>
-                            <a href="#">T-shirt</a>
-                            <a href="#">Hoodies</a>
-                            <a href="#">Formal Pant</a>
+                            <a >Watch</a>
+                            <a >T-shirt</a>
+                            <a >Hoodies</a>
+                            <a >Formal Pant</a>
                           </div>
                         </li>
                         <li class="single-menu">
-                          <a href="#" class="title-link">Shop Women's</a>
+                          <a  class="title-link">Shop Women's</a>
                           <div class="image">
                             <img
                               src="https://via.placeholder.com/225x155"
-                              alt="#"
+                              
                             />
                           </div>
                           <div class="inner-link">
-                            <a href="#">Ladies Shirt</a>
-                            <a href="#">Ladies Frog</a>
-                            <a href="#">Ladies Sun Glass</a>
-                            <a href="#">Ladies Watch</a>
+                            <a >Ladies Shirt</a>
+                            <a >Ladies Frog</a>
+                            <a >Ladies Sun Glass</a>
+                            <a >Ladies Watch</a>
                           </div>
                         </li>
                       </ul>
                     </li>
-                    <li><a href="#">accessories</a></li>
-                    <li><a href="#">top 100 offer</a></li>
-                    <li><a href="#">sunglass</a></li>
-                    <li><a href="#">watch</a></li>
-                    <li><a href="#">man’s product</a></li>
-                    <li><a href="#">ladies</a></li>
-                    <li><a href="#">westrn dress</a></li>
-                    <li><a href="#">denim </a></li>
+                    <li><a >accessories</a></li>
+                    <li><a >top 100 offer</a></li>
+                    <li><a >sunglass</a></li>
+                    <li><a >watch</a></li>
+                    <li><a >man’s product</a></li>
+                    <li><a >ladies</a></li>
+                    <li><a >westrn dress</a></li>
+                    <li><a >denim </a></li>
                   </ul> -->
         
                 </div>
@@ -257,14 +257,15 @@
                     <div class="navbar-collapse">
                       <div class="nav-inner">
                         <ul class="nav main-menu menu navbar-nav">
-                          <li class="active">
+							{{ request()->path() }}
+                          <li class="{{ '/' == request()->path() ? 'active' : '' }}">
 						   <router-link to="/home">Home</router-link>
                           </li>
-                          <li>  <router-link to="/product">Product</router-link></li>
+                          <li>  <router-link to="/shopgrid">Product</router-link></li>
                          
-                          <li><a href="#">Service</a></li>
+                          <li><a >Service</a></li>
                           <li>
-                            <a href="#"
+                            <a 
                               >Shop<i class="ti-angle-down"></i
                               ><span class="new">New</span></a
                             >
@@ -273,7 +274,7 @@
                               <li>  <router-link to="/checkout">Checkout</router-link></li>
                             </ul>
                           </li>
-                          <li><a href="#">Pages</a></li>
+                          <li><a >Pages</a></li>
                           <li>  <router-link to="/contactus">Contact Us</router-link></li>
                         </ul>
                       </div>
@@ -295,6 +296,8 @@
 	</div>
 
 	</div>
+
+ 
 	<!-- Start Shop Newsletter  -->
 	<section class="shop-newsletter section">
 		<div class="container">
@@ -332,7 +335,7 @@
 						<!-- Single Widget -->
 						<div class="single-footer about">
 							<div class="logo">
-								<a href="index.html"><img src="images/logo2.png" alt="#"></a>
+								<a href="index.html"><img src="images/logo2.png" ></a>
 							</div>
 							<p class="text">Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, magna
 								eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor,
@@ -347,11 +350,11 @@
 						<div class="single-footer links">
 							<h4>Information</h4>
 							<ul>
-								<li><a href="#">About Us</a></li>
-								<li><a href="#">Faq</a></li>
-								<li><a href="#">Terms & Conditions</a></li>
-								<li><a href="#">Contact Us</a></li>
-								<li><a href="#">Help</a></li>
+								<li><a >About Us</a></li>
+								<li><a >Faq</a></li>
+								<li><a >Terms & Conditions</a></li>
+								<li><a >Contact Us</a></li>
+								<li><a >Help</a></li>
 							</ul>
 						</div>
 						<!-- End Single Widget -->
@@ -361,11 +364,11 @@
 						<div class="single-footer links">
 							<h4>Customer Service</h4>
 							<ul>
-								<li><a href="#">Payment Methods</a></li>
-								<li><a href="#">Money-back</a></li>
-								<li><a href="#">Returns</a></li>
-								<li><a href="#">Shipping</a></li>
-								<li><a href="#">Privacy Policy</a></li>
+								<li><a >Payment Methods</a></li>
+								<li><a >Money-back</a></li>
+								<li><a >Returns</a></li>
+								<li><a >Shipping</a></li>
+								<li><a >Privacy Policy</a></li>
 							</ul>
 						</div>
 						<!-- End Single Widget -->
@@ -385,10 +388,10 @@
 							</div>
 							<!-- End Single Widget -->
 							<ul>
-								<li><a href="#"><i class="ti-facebook"></i></a></li>
-								<li><a href="#"><i class="ti-twitter"></i></a></li>
-								<li><a href="#"><i class="ti-flickr"></i></a></li>
-								<li><a href="#"><i class="ti-instagram"></i></a></li>
+								<li><a ><i class="ti-facebook"></i></a></li>
+								<li><a ><i class="ti-twitter"></i></a></li>
+								<li><a ><i class="ti-flickr"></i></a></li>
+								<li><a ><i class="ti-instagram"></i></a></li>
 							</ul>
 						</div>
 						<!-- End Single Widget -->
@@ -409,7 +412,7 @@
 						</div>
 						<div class="col-lg-6 col-12">
 							<div class="right">
-								<img src="images/payments.png" alt="#">
+								<img src="images/payments.png" >
 							</div>
 						</div>
 					</div>
