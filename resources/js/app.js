@@ -62,6 +62,7 @@ const routes = [
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+
 // Vue.component('mensproduct', require('./components/MensProductComponent.vue').default);
 // Vue.component('womensproduct', require('./components/WomensProductComponent.vue').default);
 // Vue.component('accessoriesproduct', require('./components/AccessoriesProductComponent.vue').default);
@@ -70,6 +71,7 @@ const routes = [
 // Vue.component('productmodal', require('./components/ProductdetailComponent.vue').default);
 //Vue.component('home', require('./components/HomeComponent.vue').default);
 Vue.component("cartcom", require("./components/HeaderComponent.vue").default);
+Vue.component("deletemodal", require("./components/DeleteModalComponent.vue").default);
 
 const router = new VueRouter({
     routes,

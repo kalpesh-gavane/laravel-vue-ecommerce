@@ -37,3 +37,6 @@ Route::get('/delete/item/{id}',[ProductsController::class,'destroy']);
 Route::get('/delete/product/{id}',[ProductsController::class,'destroy_product']);
 
 Route::view('/checkout','checkout');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

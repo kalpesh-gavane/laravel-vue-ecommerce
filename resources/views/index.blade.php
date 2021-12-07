@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="zxx">
 
-
-
 <head>
 	<!-- Meta Tag -->
 	<meta charset="utf-8">
@@ -20,7 +18,7 @@
 		rel="stylesheet">
 
 	<!-- StyleSheet -->
-<link rel="stylesheet" href="http://webapplayers.com/inspinia_admin-v2.8/css/plugins/toastr/toastr.min.css">
+   	<link rel="stylesheet" href="http://webapplayers.com/inspinia_admin-v2.8/css/plugins/toastr/toastr.min.css">
 
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="{{ url('web/css/bootstrap.css') }}">
@@ -51,10 +49,7 @@
 	<link rel="stylesheet" href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
-
 <body class="js">
-
-
 	<!-- Preloader -->
 	<div class="preloader">
 		<div class="preloader-inner">
@@ -66,10 +61,10 @@
 	</div>
 	<!-- End Preloader -->
 	<div id="app">
+		<deletemodal></deletemodal>
   <!-- Header -->
   <header class="header shop">
 
- 
       <!-- Topbar -->
       <div class="topbar">
         <div class="container">
@@ -93,7 +88,7 @@
                     <i class="ti-alarm-clock"></i> <a >Daily deal</a>
                   </li>
                   <li><i class="ti-user"></i> <a >My account</a></li>
-                  <li><i class="ti-power-off"></i><a>Login</a></li>
+                  <li><i class="ti-power-off"></i><a href="{{ url('/login') }}">Login</a></li>
                 </ul>
               </div>
 
@@ -257,13 +252,13 @@
                     <div class="navbar-collapse">
                       <div class="nav-inner">
                         <ul class="nav main-menu menu navbar-nav">
-							{{ request()->path() }}
+					
                           <li class="{{ '/' == request()->path() ? 'active' : '' }}">
 						   <router-link to="/home">Home</router-link>
                           </li>
                           <li>  <router-link to="/shopgrid">Product</router-link></li>
                          
-                          <li><a >Service</a></li>
+                          
                           <li>
                             <a 
                               >Shop<i class="ti-angle-down"></i
@@ -274,7 +269,7 @@
                               <li>  <router-link to="/checkout">Checkout</router-link></li>
                             </ul>
                           </li>
-                          <li><a >Pages</a></li>
+                 
                           <li>  <router-link to="/contactus">Contact Us</router-link></li>
                         </ul>
                       </div>
