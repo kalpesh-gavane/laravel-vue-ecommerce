@@ -23,6 +23,8 @@ class ProductsController extends Controller
      return response()->json($products,200);
     }
 
+ 
+
     /**
      * Show the form for creating a new resource.
      *

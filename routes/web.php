@@ -22,6 +22,8 @@ Route::get('/welcome', function () {
 Auth::routes();
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Route::group(['middleware' => ['auth']], function () {
 Route::resource('/tasks', TodoController::class);
 Route::get('/tasks/search/{term?}',[TodoController::class,'search']);
 
@@ -37,6 +39,8 @@ Route::get('/delete/item/{id}',[ProductsController::class,'destroy']);
 Route::get('/delete/product/{id}',[ProductsController::class,'destroy_product']);
 
 Route::view('/checkout','checkout');
-Auth::routes();
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// });

@@ -3610,241 +3610,91 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      products: {}
+    };
+  },
   mounted: function mounted() {
-    console.log('gridshopcomponent');
+    axios.get("http://localhost/laravel/public/cartdata").then(function (response) {
+      var arr = [];
+      response.data.forEach(function (value, index) {
+        // $(`.countdown${value.product_id}`).val(parseInt(5));
+        $(".countdown".concat(value.product_id)).val(parseInt($(".countdown".concat(value.product_id)).val()) + value.qty);
+        arr.push(value); //  alert($(`.countdown${value.product_id}`).val());
+      });
+    });
+  },
+  created: function created() {
+    var _this = this;
+
+    axios.get("http://localhost/laravel/public/api/garmentproducts/1").then(function (response) {
+      _this.products = response.data; //  console.log(response.data);
+    });
+  },
+  methods: {
+    updateqty: function updateqty(product_id, product_cat_id, type, max_qty, min_qty) {
+      var _this2 = this;
+
+      // alert(type);
+      if (type == "add") {
+        if ($(".countdown".concat(product_id)).val() >= max_qty) {
+          this.$toaster.error("You Reached Max Qty");
+        } else {
+          $(".countdown".concat(product_id)).val(parseInt($(".countdown".concat(product_id)).val()) + 1);
+          var quantity = $(".countdown".concat(product_id)).val();
+          axios.get("http://localhost/laravel/public/cart/add/" + product_id + "/" + product_cat_id + "/" + quantity).then(function (response) {
+            //  alert("watch");
+            // this.carts = response.data;
+            _this2.$root.$emit("newdata"); // console.log(response.data);
+            // $("#cart_data").reload("#cart_data");
+
+
+            _this2.$toaster.success("Item Added To Cart.");
+          });
+        }
+      } else {
+        if ($(".countdown".concat(product_id)).val() <= 1) {
+          axios.get("http://localhost/laravel/public/delete/product/" + product_id).then(function (response) {
+            _this2.$root.$emit("newdata");
+
+            $(".countdown".concat(product_id)).val(parseInt($(".countdown".concat(product_id)).val()) - 1);
+
+            _this2.$toaster.error("Item Removed From Cart.");
+          });
+        } else {
+          $(".countdown".concat(product_id)).val(parseInt($(".countdown".concat(product_id)).val()) - 1);
+
+          var _quantity = $(".countdown".concat(product_id)).val();
+
+          axios.get("http://localhost/laravel/public/cart/add/" + product_id + "/" + product_cat_id + "/" + _quantity).then(function (response) {
+            _this2.$root.$emit("newdata");
+
+            _this2.$toaster.error("Item Removed From Cart.");
+          });
+        }
+      } // alert(this.total_quantity);
+
+    },
+    filterdata: function filterdata() {
+      var _this3 = this;
+
+      var value = $("#dropdown").val(); // alert(window.location.);
+
+      axios.get("http://localhost/laravelVueEcommerce/public/api/data/".concat(value)).then(function (response) {
+        _this3.products = response.data; //  console.log(response.data);
+      });
+    },
+    filterdata2: function filterdata2() {
+      var _this4 = this;
+
+      var rec = $("#records").val(); // alert(window.location.);
+
+      axios.get("http://localhost/laravelVueEcommerce/public/api/data2/".concat(rec)).then(function (response) {
+        _this4.products = response.data; //  console.log(response.data);
+      });
+    }
   }
 });
 
@@ -47511,948 +47361,255 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "section",
+    { staticClass: "product-area shop-sidebar shop section" },
+    [
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "row" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-9 col-md-8 col-12" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-12" }, [
+                _c("div", { staticClass: "shop-top" }, [
+                  _c("div", { staticClass: "shop-shorter" }, [
+                    _c("div", { staticClass: "single-shorter" }, [
+                      _c("label", [_vm._v("Show :")]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          attrs: { id: "records" },
+                          on: {
+                            change: function($event) {
+                              return _vm.filterdata2()
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "option",
+                            { attrs: { selected: "selected", value: "3" } },
+                            [_vm._v("3")]
+                          ),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "5" } }, [
+                            _vm._v("5")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "8" } }, [_vm._v("8")])
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "single-shorter" }, [
+                      _c("label", [_vm._v("Sort By :")]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          attrs: { id: "dropdown" },
+                          on: {
+                            change: function($event) {
+                              return _vm.filterdata()
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "option",
+                            {
+                              attrs: {
+                                selected: "selected",
+                                value: "product_name"
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                        Name\n                      "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "mrp" } }, [
+                            _vm._v("Price")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "mrp" } }, [
+                            _vm._v("Size")
+                          ])
+                        ]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(1)
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "row" },
+              _vm._l(_vm.products, function(product) {
+                return _c("div", { staticClass: "col-lg-4 col-md-6 col-12" }, [
+                  _c("div", { staticClass: "single-product" }, [
+                    _c("div", { staticClass: "product-img" }, [
+                      _vm._m(2, true),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "button-head" }, [
+                        _c("div", { staticClass: "product-action" }, [
+                          _c("div", { staticClass: "qty mt-5" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "minus bg-dark",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.updateqty(
+                                      product.product_id,
+                                      product.product_cat_id,
+                                      "minus"
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                          -\n                        "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              class:
+                                "countdown" +
+                                product.product_id +
+                                " count quantityinput",
+                              attrs: {
+                                type: "text",
+                                disabled: "true",
+                                value: "0",
+                                minlength: "1",
+                                maxlength: "2",
+                                min: product.min_qty,
+                                max: product.max_qty
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "plus bg-dark",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.updateqty(
+                                      product.product_id,
+                                      product.product_cat_id,
+                                      "add",
+                                      product.max_qty
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                          +\n                        "
+                                )
+                              ]
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "product-action-2" })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "product-content" }, [
+                      _c("h3", [
+                        _c("a", { attrs: { href: "product-details.html" } }, [
+                          _vm._v(_vm._s(product.product_name))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(3, true)
+                    ])
+                  ])
+                ])
+              }),
+              0
+            )
+          ])
+        ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "section",
-      { staticClass: "product-area shop-sidebar shop section" },
-      [
-        _c("div", { staticClass: "container" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-lg-3 col-md-4 col-12" }, [
-              _c("div", { staticClass: "shop-sidebar" }, [
-                _c("div", { staticClass: "single-widget category" }, [
-                  _c("h3", { staticClass: "title" }, [_vm._v("Categories")]),
-                  _vm._v(" "),
-                  _c("ul", { staticClass: "categor-list" }, [
-                    _c("li", [_c("a", [_vm._v("T-shirts")])]),
-                    _vm._v(" "),
-                    _c("li", [_c("a", [_vm._v("jacket")])]),
-                    _vm._v(" "),
-                    _c("li", [_c("a", [_vm._v("jeans")])]),
-                    _vm._v(" "),
-                    _c("li", [_c("a", [_vm._v("sweatshirts")])]),
-                    _vm._v(" "),
-                    _c("li", [_c("a", [_vm._v("trousers")])]),
-                    _vm._v(" "),
-                    _c("li", [_c("a", [_vm._v("kitwears")])]),
-                    _vm._v(" "),
-                    _c("li", [_c("a", [_vm._v("accessories")])])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "single-widget range" }, [
-                  _c("h3", { staticClass: "title" }, [_vm._v("Shop by Price")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "price-filter" }, [
-                    _c("div", { staticClass: "price-filter-inner" }, [
-                      _c("div", { attrs: { id: "slider-range" } }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "price_slider_amount" }, [
-                        _c("div", { staticClass: "label-input" }, [
-                          _c("span", [_vm._v("Range:")]),
-                          _c("input", {
-                            attrs: {
-                              type: "text",
-                              id: "amount",
-                              name: "price",
-                              placeholder: "Add Your Price"
-                            }
-                          })
-                        ])
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("ul", { staticClass: "check-box-list" }, [
-                    _c("li", [
-                      _c(
-                        "label",
-                        { staticClass: "checkbox-inline", attrs: { for: "1" } },
-                        [
-                          _c("input", {
-                            attrs: { name: "news", id: "1", type: "checkbox" }
-                          }),
-                          _vm._v("$20 - $50"),
-                          _c("span", { staticClass: "count" }, [_vm._v("(3)")])
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c(
-                        "label",
-                        { staticClass: "checkbox-inline", attrs: { for: "2" } },
-                        [
-                          _c("input", {
-                            attrs: { name: "news", id: "2", type: "checkbox" }
-                          }),
-                          _vm._v("$50 - $100"),
-                          _c("span", { staticClass: "count" }, [_vm._v("(5)")])
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c(
-                        "label",
-                        { staticClass: "checkbox-inline", attrs: { for: "3" } },
-                        [
-                          _c("input", {
-                            attrs: { name: "news", id: "3", type: "checkbox" }
-                          }),
-                          _vm._v("$100 - $250"),
-                          _c("span", { staticClass: "count" }, [_vm._v("(8)")])
-                        ]
-                      )
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "single-widget recent-post" }, [
-                  _c("h3", { staticClass: "title" }, [_vm._v("Recent post")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "single-post first" }, [
-                    _c("div", { staticClass: "image" }, [
-                      _c("img", {
-                        attrs: {
-                          src: "https://via.placeholder.com/75x75",
-                          alt: "#"
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "content" }, [
-                      _c("h5", [_c("a", [_vm._v("Girls Dress")])]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "price" }, [_vm._v("$99.50")]),
-                      _vm._v(" "),
-                      _c("ul", { staticClass: "reviews" }, [
-                        _c("li", { staticClass: "yellow" }, [
-                          _c("i", { staticClass: "ti-star" })
-                        ]),
-                        _vm._v(" "),
-                        _c("li", { staticClass: "yellow" }, [
-                          _c("i", { staticClass: "ti-star" })
-                        ]),
-                        _vm._v(" "),
-                        _c("li", { staticClass: "yellow" }, [
-                          _c("i", { staticClass: "ti-star" })
-                        ]),
-                        _vm._v(" "),
-                        _c("li", [_c("i", { staticClass: "ti-star" })]),
-                        _vm._v(" "),
-                        _c("li", [_c("i", { staticClass: "ti-star" })])
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "single-post first" }, [
-                    _c("div", { staticClass: "image" }, [
-                      _c("img", {
-                        attrs: {
-                          src: "https://via.placeholder.com/75x75",
-                          alt: "#"
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "content" }, [
-                      _c("h5", [_c("a", [_vm._v("Women Clothings")])]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "price" }, [_vm._v("$99.50")]),
-                      _vm._v(" "),
-                      _c("ul", { staticClass: "reviews" }, [
-                        _c("li", { staticClass: "yellow" }, [
-                          _c("i", { staticClass: "ti-star" })
-                        ]),
-                        _vm._v(" "),
-                        _c("li", { staticClass: "yellow" }, [
-                          _c("i", { staticClass: "ti-star" })
-                        ]),
-                        _vm._v(" "),
-                        _c("li", { staticClass: "yellow" }, [
-                          _c("i", { staticClass: "ti-star" })
-                        ]),
-                        _vm._v(" "),
-                        _c("li", { staticClass: "yellow" }, [
-                          _c("i", { staticClass: "ti-star" })
-                        ]),
-                        _vm._v(" "),
-                        _c("li", [_c("i", { staticClass: "ti-star" })])
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "single-post first" }, [
-                    _c("div", { staticClass: "image" }, [
-                      _c("img", {
-                        attrs: {
-                          src: "https://via.placeholder.com/75x75",
-                          alt: "#"
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "content" }, [
-                      _c("h5", [_c("a", [_vm._v("Man Tshirt")])]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "price" }, [_vm._v("$99.50")]),
-                      _vm._v(" "),
-                      _c("ul", { staticClass: "reviews" }, [
-                        _c("li", { staticClass: "yellow" }, [
-                          _c("i", { staticClass: "ti-star" })
-                        ]),
-                        _vm._v(" "),
-                        _c("li", { staticClass: "yellow" }, [
-                          _c("i", { staticClass: "ti-star" })
-                        ]),
-                        _vm._v(" "),
-                        _c("li", { staticClass: "yellow" }, [
-                          _c("i", { staticClass: "ti-star" })
-                        ]),
-                        _vm._v(" "),
-                        _c("li", { staticClass: "yellow" }, [
-                          _c("i", { staticClass: "ti-star" })
-                        ]),
-                        _vm._v(" "),
-                        _c("li", { staticClass: "yellow" }, [
-                          _c("i", { staticClass: "ti-star" })
-                        ])
-                      ])
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "single-widget category" }, [
-                  _c("h3", { staticClass: "title" }, [_vm._v("Manufacturers")]),
-                  _vm._v(" "),
-                  _c("ul", { staticClass: "categor-list" }, [
-                    _c("li", [_c("a", [_vm._v("Forever")])]),
-                    _vm._v(" "),
-                    _c("li", [_c("a", [_vm._v("giordano")])]),
-                    _vm._v(" "),
-                    _c("li", [_c("a", [_vm._v("abercrombie")])]),
-                    _vm._v(" "),
-                    _c("li", [_c("a", [_vm._v("ecko united")])]),
-                    _vm._v(" "),
-                    _c("li", [_c("a", [_vm._v("zara")])])
-                  ])
-                ])
-              ])
-            ]),
+    return _c("div", { staticClass: "col-lg-3 col-md-4 col-12" }, [
+      _c("div", { staticClass: "shop-sidebar" }, [
+        _c("div", { staticClass: "single-widget category" }, [
+          _c("h3", { staticClass: "title" }, [_vm._v("Categories")]),
+          _vm._v(" "),
+          _c("ul", { staticClass: "categor-list" }, [
+            _c("li", [_c("a", [_vm._v("T-shirts")])]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-lg-9 col-md-8 col-12" }, [
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-12" }, [
-                  _c("div", { staticClass: "shop-top" }, [
-                    _c("div", { staticClass: "shop-shorter" }, [
-                      _c("div", { staticClass: "single-shorter" }, [
-                        _c("label", [_vm._v("Show :")]),
-                        _vm._v(" "),
-                        _c("select", [
-                          _c("option", { attrs: { selected: "selected" } }, [
-                            _vm._v("09")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", [_vm._v("15")]),
-                          _vm._v(" "),
-                          _c("option", [_vm._v("25")]),
-                          _vm._v(" "),
-                          _c("option", [_vm._v("30")])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "single-shorter" }, [
-                        _c("label", [_vm._v("Sort By :")]),
-                        _vm._v(" "),
-                        _c("select", [
-                          _c("option", { attrs: { selected: "selected" } }, [
-                            _vm._v("Name")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", [_vm._v("Price")]),
-                          _vm._v(" "),
-                          _c("option", [_vm._v("Size")])
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("ul", { staticClass: "view-mode" }, [
-                      _c("li", { staticClass: "active" }, [
-                        _c("a", { attrs: { href: "shop-grid.html" } }, [
-                          _c("i", { staticClass: "fa fa-th-large" })
-                        ])
-                      ])
-                    ])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-lg-4 col-md-6 col-12" }, [
-                  _c("div", { staticClass: "single-product" }, [
-                    _c("div", { staticClass: "product-img" }, [
-                      _c("a", { attrs: { href: "product-details.html" } }, [
-                        _c("img", {
-                          staticClass: "default-img",
-                          attrs: {
-                            src: "https://via.placeholder.com/550x750",
-                            alt: "#"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("img", {
-                          staticClass: "hover-img",
-                          attrs: {
-                            src: "https://via.placeholder.com/550x750",
-                            alt: "#"
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "button-head" }, [
-                        _c("div", { staticClass: "product-action" }, [
-                          _c(
-                            "a",
-                            {
-                              attrs: {
-                                "data-toggle": "modal",
-                                "data-target": "#exampleModal",
-                                title: "Quick View"
-                              }
-                            },
-                            [
-                              _c("i", { staticClass: " ti-eye" }),
-                              _c("span", [_vm._v("Quick Shop")])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("a", { attrs: { title: "Wishlist" } }, [
-                            _c("i", { staticClass: " ti-heart " }),
-                            _c("span", [_vm._v("Add to Wishlist")])
-                          ]),
-                          _vm._v(" "),
-                          _c("a", { attrs: { title: "Compare" } }, [
-                            _c("i", { staticClass: "ti-bar-chart-alt" }),
-                            _c("span", [_vm._v("Add to Compare")])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "product-action-2" }, [
-                          _c("a", { attrs: { title: "Add to cart" } }, [
-                            _vm._v("Add to cart")
-                          ])
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "product-content" }, [
-                      _c("h3", [
-                        _c("a", { attrs: { href: "product-details.html" } }, [
-                          _vm._v("Women Hot Collection")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "product-price" }, [
-                        _c("span", [_vm._v("$29.00")])
-                      ])
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-lg-4 col-md-6 col-12" }, [
-                  _c("div", { staticClass: "single-product" }, [
-                    _c("div", { staticClass: "product-img" }, [
-                      _c("a", { attrs: { href: "product-details.html" } }, [
-                        _c("img", {
-                          staticClass: "default-img",
-                          attrs: {
-                            src: "https://via.placeholder.com/550x750",
-                            alt: "#"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("img", {
-                          staticClass: "hover-img",
-                          attrs: {
-                            src: "https://via.placeholder.com/550x750",
-                            alt: "#"
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "button-head" }, [
-                        _c("div", { staticClass: "product-action" }, [
-                          _c(
-                            "a",
-                            {
-                              attrs: {
-                                "data-toggle": "modal",
-                                "data-target": "#exampleModal",
-                                title: "Quick View"
-                              }
-                            },
-                            [
-                              _c("i", { staticClass: " ti-eye" }),
-                              _c("span", [_vm._v("Quick Shop")])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("a", { attrs: { title: "Wishlist" } }, [
-                            _c("i", { staticClass: " ti-heart " }),
-                            _c("span", [_vm._v("Add to Wishlist")])
-                          ]),
-                          _vm._v(" "),
-                          _c("a", { attrs: { title: "Compare" } }, [
-                            _c("i", { staticClass: "ti-bar-chart-alt" }),
-                            _c("span", [_vm._v("Add to Compare")])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "product-action-2" }, [
-                          _c("a", { attrs: { title: "Add to cart" } }, [
-                            _vm._v("Add to cart")
-                          ])
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "product-content" }, [
-                      _c("h3", [
-                        _c("a", { attrs: { href: "product-details.html" } }, [
-                          _vm._v("Awesome Pink Show")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "product-price" }, [
-                        _c("span", [_vm._v("$29.00")])
-                      ])
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-lg-4 col-md-6 col-12" }, [
-                  _c("div", { staticClass: "single-product" }, [
-                    _c("div", { staticClass: "product-img" }, [
-                      _c("a", { attrs: { href: "product-details.html" } }, [
-                        _c("img", {
-                          staticClass: "default-img",
-                          attrs: {
-                            src: "https://via.placeholder.com/550x750",
-                            alt: "#"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("img", {
-                          staticClass: "hover-img",
-                          attrs: {
-                            src: "https://via.placeholder.com/550x750",
-                            alt: "#"
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "button-head" }, [
-                        _c("div", { staticClass: "product-action" }, [
-                          _c(
-                            "a",
-                            {
-                              attrs: {
-                                "data-toggle": "modal",
-                                "data-target": "#exampleModal",
-                                title: "Quick View"
-                              }
-                            },
-                            [
-                              _c("i", { staticClass: " ti-eye" }),
-                              _c("span", [_vm._v("Quick Shop")])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("a", { attrs: { title: "Wishlist" } }, [
-                            _c("i", { staticClass: " ti-heart " }),
-                            _c("span", [_vm._v("Add to Wishlist")])
-                          ]),
-                          _vm._v(" "),
-                          _c("a", { attrs: { title: "Compare" } }, [
-                            _c("i", { staticClass: "ti-bar-chart-alt" }),
-                            _c("span", [_vm._v("Add to Compare")])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "product-action-2" }, [
-                          _c("a", { attrs: { title: "Add to cart" } }, [
-                            _vm._v("Add to cart")
-                          ])
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "product-content" }, [
-                      _c("h3", [
-                        _c("a", { attrs: { href: "product-details.html" } }, [
-                          _vm._v("Awesome Bags Collection")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "product-price" }, [
-                        _c("span", [_vm._v("$29.00")])
-                      ])
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-lg-4 col-md-6 col-12" }, [
-                  _c("div", { staticClass: "single-product" }, [
-                    _c("div", { staticClass: "product-img" }, [
-                      _c("a", { attrs: { href: "product-details.html" } }, [
-                        _c("img", {
-                          staticClass: "default-img",
-                          attrs: {
-                            src: "https://via.placeholder.com/550x750",
-                            alt: "#"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("img", {
-                          staticClass: "hover-img",
-                          attrs: {
-                            src: "https://via.placeholder.com/550x750",
-                            alt: "#"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "new" }, [_vm._v("New")])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "button-head" }, [
-                        _c("div", { staticClass: "product-action" }, [
-                          _c(
-                            "a",
-                            {
-                              attrs: {
-                                "data-toggle": "modal",
-                                "data-target": "#exampleModal",
-                                title: "Quick View"
-                              }
-                            },
-                            [
-                              _c("i", { staticClass: " ti-eye" }),
-                              _c("span", [_vm._v("Quick Shop")])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("a", { attrs: { title: "Wishlist" } }, [
-                            _c("i", { staticClass: " ti-heart " }),
-                            _c("span", [_vm._v("Add to Wishlist")])
-                          ]),
-                          _vm._v(" "),
-                          _c("a", { attrs: { title: "Compare" } }, [
-                            _c("i", { staticClass: "ti-bar-chart-alt" }),
-                            _c("span", [_vm._v("Add to Compare")])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "product-action-2" }, [
-                          _c("a", { attrs: { title: "Add to cart" } }, [
-                            _vm._v("Add to cart")
-                          ])
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "product-content" }, [
-                      _c("h3", [
-                        _c("a", { attrs: { href: "product-details.html" } }, [
-                          _vm._v("Women Pant Collectons")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "product-price" }, [
-                        _c("span", [_vm._v("$29.00")])
-                      ])
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-lg-4 col-md-6 col-12" }, [
-                  _c("div", { staticClass: "single-product" }, [
-                    _c("div", { staticClass: "product-img" }, [
-                      _c("a", { attrs: { href: "product-details.html" } }, [
-                        _c("img", {
-                          staticClass: "default-img",
-                          attrs: {
-                            src: "https://via.placeholder.com/550x750",
-                            alt: "#"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("img", {
-                          staticClass: "hover-img",
-                          attrs: {
-                            src: "https://via.placeholder.com/550x750",
-                            alt: "#"
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "button-head" }, [
-                        _c("div", { staticClass: "product-action" }, [
-                          _c(
-                            "a",
-                            {
-                              attrs: {
-                                "data-toggle": "modal",
-                                "data-target": "#exampleModal",
-                                title: "Quick View"
-                              }
-                            },
-                            [
-                              _c("i", { staticClass: " ti-eye" }),
-                              _c("span", [_vm._v("Quick Shop")])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("a", { attrs: { title: "Wishlist" } }, [
-                            _c("i", { staticClass: " ti-heart " }),
-                            _c("span", [_vm._v("Add to Wishlist")])
-                          ]),
-                          _vm._v(" "),
-                          _c("a", { attrs: { title: "Compare" } }, [
-                            _c("i", { staticClass: "ti-bar-chart-alt" }),
-                            _c("span", [_vm._v("Add to Compare")])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "product-action-2" }, [
-                          _c("a", { attrs: { title: "Add to cart" } }, [
-                            _vm._v("Add to cart")
-                          ])
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "product-content" }, [
-                      _c("h3", [
-                        _c("a", { attrs: { href: "product-details.html" } }, [
-                          _vm._v("Awesome Bags Collection")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "product-price" }, [
-                        _c("span", [_vm._v("$29.00")])
-                      ])
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-lg-4 col-md-6 col-12" }, [
-                  _c("div", { staticClass: "single-product" }, [
-                    _c("div", { staticClass: "product-img" }, [
-                      _c("a", { attrs: { href: "product-details.html" } }, [
-                        _c("img", {
-                          staticClass: "default-img",
-                          attrs: {
-                            src: "https://via.placeholder.com/550x750",
-                            alt: "#"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("img", {
-                          staticClass: "hover-img",
-                          attrs: {
-                            src: "https://via.placeholder.com/550x750",
-                            alt: "#"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "price-dec" }, [
-                          _vm._v("30% Off")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "button-head" }, [
-                        _c("div", { staticClass: "product-action" }, [
-                          _c(
-                            "a",
-                            {
-                              attrs: {
-                                "data-toggle": "modal",
-                                "data-target": "#exampleModal",
-                                title: "Quick View"
-                              }
-                            },
-                            [
-                              _c("i", { staticClass: " ti-eye" }),
-                              _c("span", [_vm._v("Quick Shop")])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("a", { attrs: { title: "Wishlist" } }, [
-                            _c("i", { staticClass: " ti-heart " }),
-                            _c("span", [_vm._v("Add to Wishlist")])
-                          ]),
-                          _vm._v(" "),
-                          _c("a", { attrs: { title: "Compare" } }, [
-                            _c("i", { staticClass: "ti-bar-chart-alt" }),
-                            _c("span", [_vm._v("Add to Compare")])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "product-action-2" }, [
-                          _c("a", { attrs: { title: "Add to cart" } }, [
-                            _vm._v("Add to cart")
-                          ])
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "product-content" }, [
-                      _c("h3", [
-                        _c("a", { attrs: { href: "product-details.html" } }, [
-                          _vm._v("Awesome Cap For Women")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "product-price" }, [
-                        _c("span", [_vm._v("$29.00")])
-                      ])
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-lg-4 col-md-6 col-12" }, [
-                  _c("div", { staticClass: "single-product" }, [
-                    _c("div", { staticClass: "product-img" }, [
-                      _c("a", { attrs: { href: "product-details.html" } }, [
-                        _c("img", {
-                          staticClass: "default-img",
-                          attrs: {
-                            src: "https://via.placeholder.com/550x750",
-                            alt: "#"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("img", {
-                          staticClass: "hover-img",
-                          attrs: {
-                            src: "https://via.placeholder.com/550x750",
-                            alt: "#"
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "button-head" }, [
-                        _c("div", { staticClass: "product-action" }, [
-                          _c(
-                            "a",
-                            {
-                              attrs: {
-                                "data-toggle": "modal",
-                                "data-target": "#exampleModal",
-                                title: "Quick View"
-                              }
-                            },
-                            [
-                              _c("i", { staticClass: " ti-eye" }),
-                              _c("span", [_vm._v("Quick Shop")])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("a", { attrs: { title: "Wishlist" } }, [
-                            _c("i", { staticClass: " ti-heart " }),
-                            _c("span", [_vm._v("Add to Wishlist")])
-                          ]),
-                          _vm._v(" "),
-                          _c("a", { attrs: { title: "Compare" } }, [
-                            _c("i", { staticClass: "ti-bar-chart-alt" }),
-                            _c("span", [_vm._v("Add to Compare")])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "product-action-2" }, [
-                          _c("a", { attrs: { title: "Add to cart" } }, [
-                            _vm._v("Add to cart")
-                          ])
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "product-content" }, [
-                      _c("h3", [
-                        _c("a", { attrs: { href: "product-details.html" } }, [
-                          _vm._v("Polo Dress For Women")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "product-price" }, [
-                        _c("span", [_vm._v("$29.00")])
-                      ])
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-lg-4 col-md-6 col-12" }, [
-                  _c("div", { staticClass: "single-product" }, [
-                    _c("div", { staticClass: "product-img" }, [
-                      _c("a", { attrs: { href: "product-details.html" } }, [
-                        _c("img", {
-                          staticClass: "default-img",
-                          attrs: {
-                            src: "https://via.placeholder.com/550x750",
-                            alt: "#"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("img", {
-                          staticClass: "hover-img",
-                          attrs: {
-                            src: "https://via.placeholder.com/550x750",
-                            alt: "#"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "out-of-stock" }, [
-                          _vm._v("Hot")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "button-head" }, [
-                        _c("div", { staticClass: "product-action" }, [
-                          _c(
-                            "a",
-                            {
-                              attrs: {
-                                "data-toggle": "modal",
-                                "data-target": "#exampleModal",
-                                title: "Quick View"
-                              }
-                            },
-                            [
-                              _c("i", { staticClass: " ti-eye" }),
-                              _c("span", [_vm._v("Quick Shop")])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("a", { attrs: { title: "Wishlist" } }, [
-                            _c("i", { staticClass: " ti-heart " }),
-                            _c("span", [_vm._v("Add to Wishlist")])
-                          ]),
-                          _vm._v(" "),
-                          _c("a", { attrs: { title: "Compare" } }, [
-                            _c("i", { staticClass: "ti-bar-chart-alt" }),
-                            _c("span", [_vm._v("Add to Compare")])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "product-action-2" }, [
-                          _c("a", { attrs: { title: "Add to cart" } }, [
-                            _vm._v("Add to cart")
-                          ])
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "product-content" }, [
-                      _c("h3", [
-                        _c("a", { attrs: { href: "product-details.html" } }, [
-                          _vm._v("Black Sunglass For Women")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "product-price" }, [
-                        _c("span", { staticClass: "old" }, [_vm._v("$60.00")]),
-                        _vm._v(" "),
-                        _c("span", [_vm._v("$50.00")])
-                      ])
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-lg-4 col-md-6 col-12" }, [
-                  _c("div", { staticClass: "single-product" }, [
-                    _c("div", { staticClass: "product-img" }, [
-                      _c("a", { attrs: { href: "product-details.html" } }, [
-                        _c("img", {
-                          staticClass: "default-img",
-                          attrs: {
-                            src: "https://via.placeholder.com/550x750",
-                            alt: "#"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("img", {
-                          staticClass: "hover-img",
-                          attrs: {
-                            src: "https://via.placeholder.com/550x750",
-                            alt: "#"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "new" }, [_vm._v("New")])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "button-head" }, [
-                        _c("div", { staticClass: "product-action" }, [
-                          _c(
-                            "a",
-                            {
-                              attrs: {
-                                "data-toggle": "modal",
-                                "data-target": "#exampleModal",
-                                title: "Quick View"
-                              }
-                            },
-                            [
-                              _c("i", { staticClass: " ti-eye" }),
-                              _c("span", [_vm._v("Quick Shop")])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("a", { attrs: { title: "Wishlist" } }, [
-                            _c("i", { staticClass: " ti-heart " }),
-                            _c("span", [_vm._v("Add to Wishlist")])
-                          ]),
-                          _vm._v(" "),
-                          _c("a", { attrs: { title: "Compare" } }, [
-                            _c("i", { staticClass: "ti-bar-chart-alt" }),
-                            _c("span", [_vm._v("Add to Compare")])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "product-action-2" }, [
-                          _c("a", { attrs: { title: "Add to cart" } }, [
-                            _vm._v("Add to cart")
-                          ])
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "product-content" }, [
-                      _c("h3", [
-                        _c("a", { attrs: { href: "product-details.html" } }, [
-                          _vm._v("Women Pant Collectons")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "product-price" }, [
-                        _c("span", [_vm._v("$29.00")])
-                      ])
-                    ])
-                  ])
-                ])
-              ])
-            ])
+            _c("li", [_c("a", [_vm._v("jacket")])]),
+            _vm._v(" "),
+            _c("li", [_c("a", [_vm._v("jeans")])]),
+            _vm._v(" "),
+            _c("li", [_c("a", [_vm._v("sweatshirts")])]),
+            _vm._v(" "),
+            _c("li", [_c("a", [_vm._v("trousers")])]),
+            _vm._v(" "),
+            _c("li", [_c("a", [_vm._v("kitwears")])]),
+            _vm._v(" "),
+            _c("li", [_c("a", [_vm._v("accessories")])])
           ])
         ])
-      ]
-    )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", { staticClass: "view-mode" }, [
+      _c("li", { staticClass: "active" }, [
+        _c("a", { attrs: { href: "shop-grid.html" } }, [
+          _c("i", { staticClass: "fa fa-th-large" })
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { attrs: { href: "product-details.html" } }, [
+      _c("img", {
+        staticClass: "default-img",
+        attrs: { src: "https://via.placeholder.com/550x750", alt: "#" }
+      }),
+      _vm._v(" "),
+      _c("img", {
+        staticClass: "hover-img",
+        attrs: { src: "https://via.placeholder.com/550x750", alt: "#" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "product-price" }, [
+      _c("span", [_vm._v("$29.00")])
+    ])
   }
 ]
 render._withStripped = true

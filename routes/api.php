@@ -21,3 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::get('garmentproducts/{id}',[ProductsContoller::class ,'index']);
+Route::get('data/{type}',[ProductsContoller::class ,'index2']);
+Route::get('data2/{rec}',[ProductsContoller::class ,'index3']);

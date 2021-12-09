@@ -20,6 +20,22 @@ class ProductsContoller extends Controller
         return response()->json($products,200);
     }
 
+
+    public function index2($type)
+    {
+      
+     $products = Products::orderBy($type,'asc')->take(8)->get();
+      
+     return response()->json($products,200);
+    }
+
+    public function index3($rec)
+    {
+      
+     $products = Products::take($rec)->get();
+      
+     return response()->json($products,200);
+    }
     /**
      * Show the form for creating a new resource.
      *
