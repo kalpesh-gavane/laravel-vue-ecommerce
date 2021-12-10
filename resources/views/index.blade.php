@@ -265,7 +265,7 @@
                               ><span class="new">New</span></a
                             >
                             <ul class="dropdown">
-                              <li><a href="cart.html">Cart</a></li>
+                              <li><router-link to="/cart">Cart</li>
                               <li>  <router-link to="/checkout">Checkout</router-link></li>
                             </ul>
                           </li>

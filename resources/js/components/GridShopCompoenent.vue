@@ -71,11 +71,7 @@
                     </select>
                   </div>
                 </div>
-                <ul class="view-mode">
-                  <li class="active">
-                    <a href="shop-grid.html"><i class="fa fa-th-large"></i></a>
-                  </li>
-                </ul>
+            
               </div>
               <!--/ End Shop Top -->
             </div>
