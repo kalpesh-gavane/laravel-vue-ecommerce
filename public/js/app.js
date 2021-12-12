@@ -3765,10 +3765,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -48159,9 +48155,7 @@ var render = function() {
                         ]
                       )
                     ])
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(1)
+                  ])
                 ])
               ])
             ]),
@@ -48173,7 +48167,7 @@ var render = function() {
                 return _c("div", { staticClass: "col-lg-4 col-md-6 col-12" }, [
                   _c("div", { staticClass: "single-product" }, [
                     _c("div", { staticClass: "product-img" }, [
-                      _vm._m(2, true),
+                      _vm._m(1, true),
                       _vm._v(" "),
                       _c("div", { staticClass: "button-head" }, [
                         _c("div", { staticClass: "product-action" }, [
@@ -48250,7 +48244,7 @@ var render = function() {
                         ])
                       ]),
                       _vm._v(" "),
-                      _vm._m(3, true)
+                      _vm._m(2, true)
                     ])
                   ])
                 ])
@@ -48288,18 +48282,6 @@ var staticRenderFns = [
             _vm._v(" "),
             _c("li", [_c("a", [_vm._v("accessories")])])
           ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "view-mode" }, [
-      _c("li", { staticClass: "active" }, [
-        _c("a", { attrs: { href: "shop-grid.html" } }, [
-          _c("i", { staticClass: "fa fa-th-large" })
         ])
       ])
     ])
