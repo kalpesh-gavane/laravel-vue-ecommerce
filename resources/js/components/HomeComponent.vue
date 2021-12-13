@@ -246,7 +246,7 @@
                               />
                             </a>
                             <div class="button-head">
-                               <div class="product-action">
+                              <div class="product-action">
                                 <a
                                   @click="viewproduct(wproduct.product_id)"
                                   data-toggle="modal"
@@ -644,8 +644,6 @@
     </section>
     <!-- End Shop Blog  -->
 
-
-
     <!-- product Detail modal  -->
     <div class="modal fade" id="product_detail_modal" role="dialog">
       <div class="modal-dialog" role="document">
@@ -866,6 +864,8 @@ export default {
 
     //  $(".quantityinput").prop("disabled", true);
   },
+
+
 
   mounted() {
     axios.get("http://localhost/laravel/public/cartdata").then((response) => {
