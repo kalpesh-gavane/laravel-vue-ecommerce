@@ -35,6 +35,7 @@ const contactus = require('./components/ContactComponent.vue').default;
 const checkout = require('./components/CheckoutComponent.vue').default;
 const shopgrid = require('./components/GridShopCompoenent.vue').default;
 const home = require('./components/HomeComponent.vue').default;
+const products = require('./components/Products.vue').default;
 // const cart = require().default;
 
 const routes = [
@@ -53,6 +54,10 @@ const routes = [
     {
         path: '/shopgrid',
         component: shopgrid
+    },
+    {
+        path: '/jackets',
+        component: products
     },
     {
         path: '/cart',
